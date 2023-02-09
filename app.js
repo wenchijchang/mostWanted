@@ -140,6 +140,12 @@ function displayPeople(people) {
 function displayPerson(person) {
     let personInfo = `First Name: ${person.firstName}\n`;
     personInfo += `Last Name: ${person.lastName}\n`;
+    personInfo += `Gender: ${person.gender}\n`;
+    personInfo += `Date of Birth: ${person.dob}\n`;
+    personInfo += `Height: ${person.height}\n`;
+    personInfo += `Weight: ${person.weight}\n`;
+    personInfo += `Eye Color: ${person.eyeColor}\n`;
+    personInfo += `Occupation: ${person.occupation}\n`;
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
 }
@@ -184,3 +190,53 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+function findParents(person, people){
+    let parents = [];
+    let foundParents = ""
+    if (person.parents.length === 0){
+        return "No data on Parents";
+    } else {
+        parents = people.filter((Object) => {
+            if (Object.id === person.parents[0] || Object.id === person.parents[1]) {
+                return true;
+            }
+        });
+    }
+    for (let i = 0; i < parents.length; i++){
+        foundParents += parents[i].firstName + " " + parents[i].lastName;
+    }
+    return foundParents; 
+}
+
+
+function findSibling(person, people){
+
+
+}
+
+function findSpouse(person, people){
+
+
+}
+
+function findChildren(person, people){
+
+
+}
+
+
+
+function displayFamily(person, people){
+    let parent = findParents(person, people);
+    let siblings = findSiblings(person, people);
+    let spouse = findSpouse(person, people);
+    let children = findChildren(person, people);
+    let personFamily = "Parents: " + parent + "\n";
+    personFamily += "Siblings: " + siblings + "\n";
+    personFamily += "Spouse: " + spouse + "\n";
+    personFamily += "Children: " + children;
+
+    alert(personFamily);
+
+}
