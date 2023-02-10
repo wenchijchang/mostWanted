@@ -72,7 +72,7 @@ function mainMenu(person, people) {
         case "family":
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
-            let personFamily = findPersonFamily(person[0], people);
+            let personFamily = displayFamily(person[0], people);
             alert(personFamily);
             break;
         case "descendants":
@@ -195,48 +195,94 @@ function findParents(person, people){
     let parents = [];
     let foundParents = ""
     if (person.parents.length === 0){
-        return "No data on Parents";
+        return "No data on parents";
     } else {
-        parents = people.filter((Object) => {
-            if (Object.id === person.parents[0] || Object.id === person.parents[1]) {
+        parents = people.filter((object) => {
+            if (object.id === person.parents[0] || object.id === person.parents[1]) {
                 return true;
             }
         });
     }
     for (let i = 0; i < parents.length; i++){
-        foundParents += parents[i].firstName + " " + parents[i].lastName;
+        foundParents += parents[i].firstName + " " + parents[i].lastName + " ";
     }
     return foundParents; 
 }
 
 
-function findSibling(person, people){
+function findSiblings(person, people) {
+    let siblings = [];
+    let foundSiblings = ""
+    siblings = people.filter((object) => {
+    if (person.parents.length === 0 || object.parents.length === 0) {
+        return "No data on siblings";
+    } else {
+            if (object.parents[0] === person.parents[0] || object.parents[1] === person.parents[1]) {
+                return true;
+            } else if
+                (object.parents[0] === person.parents[1] || object.parents[1] === person.parents[0]){
+                return true;
+            } else if
+                (object === person) {
+                return false;
+                }   
+        };
+    });
 
-
+    for (let i = 0; i < siblings.length; i++){
+        foundSiblings += siblings[i].firstName + " " + siblings[i].lastName + " ";
+    }
+    return foundSiblings; 
 }
 
+
 function findSpouse(person, people){
-
-
+    let spouse;
+    let spouseArray = [];
+    let foundSpouse = "";
+    spouse = people.filter((object) => {
+        if (object.id === person.currentSpouse) {
+          return true;
+        } else{
+          return "No data on spouse";  
+        } 
+    });
+    spouse = spouseArray.push(foundSpouse)
+    foundSpouse += spouse.firstName + " " + spouse.lastName + " "; 
+    return foundSpouse
 }
 
 function findChildren(person, people){
-
-
+    let children = [];
+    let foundChildren = ""
+    children = people.filter((object) => {
+        if (
+          object.parents[0] === person.id ||
+          object.parents[1] === person.id
+        ) {
+          return true;
+        } else {
+          return "No data on children";  
+        }
+    });
+    for (let i = 0; i < children.length; i++){
+        foundChildren += children[i].firstName + " " + children[i].lastName + " ";
+    }
+    return foundChildren; 
 }
 
 
 
 function displayFamily(person, people){
-    let parent = findParents(person, people);
+    let parents = findParents(person, people);
     let siblings = findSiblings(person, people);
     let spouse = findSpouse(person, people);
     let children = findChildren(person, people);
-    let personFamily = "Parents: " + parent + "\n";
+    let personFamily = "Parents: " + parents + "\n";
     personFamily += "Siblings: " + siblings + "\n";
     personFamily += "Spouse: " + spouse + "\n";
     personFamily += "Children: " + children;
 
     alert(personFamily);
-
 }
+
