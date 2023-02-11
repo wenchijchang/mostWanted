@@ -265,35 +265,40 @@ function displayFamily(person, people) {
 
 function findChildren(person, people) {
     let children = [];
-    let foundChildren = "";
     children = people.filter((object) => {
         if (object.parents.includes(person.id)) {
             return true;
         } 
     });
-    if (children.length === 0) {
-        return "No data on children";
-    }
+    // if (children.length === 0) {
+    //     return "No data on children";
+    // }
     //   for (let i = 0; i < children.length; i++) {
         //     foundChildren += children[i].firstName + " " + children[i].lastName + ". ";
         //   }
-        return foundChildren;
-    }
+    return children;
+}
     
-function findPersonDescendants(object, array = []) {
-    let children = object.children;
-    array = [object];
-    if (children.length === 0) {
-        return descendants;
-    }
+function findPersonDescendants(person, people) {
+    let children = findChildren(person, people);
+    let foundDescendants = "";
     for (let i = 0; i < children.length; i++) {
-        array = array.concat(
-            findPersonDescendants(children[i])
-        );
+      foundDescendants += children[i].firstName + " " + children[i].lastName + ". ";
+      if (i >= 0) {
+        let grandChildren = findPersonDescendants(children[i], people);
+        foundDescendants += grandChildren;
+      }
     }
-    return descendants;
+    return foundDescendants;
 }
 
+function displayDescendants(Person, people) {
+  let descendants = findPersonDescendants(person, people);
+  if (descendants.length === 0){
+    return "No data on descendants"
+  }
+  alert(descendants);
+}
 
 function searchByTraits(array){
     let userInput = prompt[("Please enter a trait or traits to search by. You may enter up to 5 traits please seperate by a comma and space:  ")];
