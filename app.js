@@ -32,6 +32,7 @@ function app(people) {
       //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
       //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
       searchResults = searchByTraits(people);
+      alert(searchResults);
       break;
     default:
       // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -260,7 +261,7 @@ function displayFamily(person, people) {
     personFamily += "Spouse: " + spouse + "\n";
     // personFamily += "Children: " + children + "\n";
     
-    alert(personFamily);
+    return personFamily;
 }
 
 function findChildren(person, people) {
@@ -297,30 +298,40 @@ function displayDescendants(Person, people) {
   if (descendants.length === 0){
     return "No data on descendants"
   }
-  alert(descendants);
+  return descendants;
 }
 
-function searchByTraits(array){
-    let userInput = prompt[("Please enter a trait or traits to search by. You may enter up to 5 traits please seperate by a comma and space:  ")];
-    let userInputVal = prompt[("Please enter value(s): ")];
-    let result = array.filter((object) => {
-        try{
-           if (
-             (object[userInput][0].includes[userInputVal][0] &&
-             object[userInput][1].includes[userInputVal][1] &&
-             object[userInput][2].includes[userInputVal][2] &&
-             object[userInput][3].includes[userInputVal][3] &&
-             object[userInput][4].includes[userInputVal][4])) {
+function searchByTraits(people){
+    let userInput = prompt("Please enter a trait or traits to search by:  ");
+    let userInputVal = prompt("Please enter value(s): ");
+    let result = []
+    let resultList = ""
+        result = people.filter((object) => {
+        // try{
+           if
+             (object[userInput].includes(userInputVal) || object[userInput] === parseInt(userInputVal)) {
+            //  object[userInput][1].includes[userInputVal][1] &&
+            //  object[userInput][2].includes[userInputVal][2] &&
+            //  object[userInput][3].includes[userInputVal][3] &&
+            //  object[userInput][4].includes[userInputVal][4])
+            
              return true;
            } 
-        } catch (error) {
-            console.log(error);
-        }
-        finally{
-            if (object[userInput] === parseInt(userInputVal)){
-                return true;
-            }
-        }
+        // } catch (error) {
+        //     console.log(error);
+        // }
+        // finally{
+        //     if (object[userInput] === parseInt(userInputVal)){
+        //         return true;
+        //     }
+        // }
     });
-    return result; 
+    for (let i = 0; i < result.length; i++) {
+        resultList +=
+          result[i].firstName + " " + result[i].lastName + ". ";
+      } if (result.length === 0) {
+        return "Sorry, there is no match";
+      }
+      return resultList;
 }
+
