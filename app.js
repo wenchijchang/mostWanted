@@ -247,6 +247,20 @@ function findSpouse(person, people) {
   }
 }
 
+
+function displayFamily(person, people) {
+    let parents = findParents(person, people);
+    let siblings = findSiblings(person, people);
+    let spouse = findSpouse(person, people);
+    let children = findChildren(person, people);
+    let personFamily = "Parents: " + parents + "\n";
+    personFamily += "Siblings: " + siblings + "\n";
+    personFamily += "Spouse: " + spouse + "\n";
+    personFamily += "Children: " + children + "\n";
+    
+    alert(personFamily);
+}
+
 function findChildren(person, people) {
   let children = [];
   let foundChildren = "";
@@ -261,13 +275,42 @@ function findChildren(person, people) {
   return foundChildren;
 }
 
-function displayFamily(person, people) {
-  let parents = findParents(person, people);
-  let siblings = findSiblings(person, people);
-  let spouse = findSpouse(person, people);
-  let personFamily = "Parents: " + parents + "\n";
-  personFamily += "Siblings: " + siblings + "\n";
-  personFamily += "Spouse: " + spouse + "\n";
+function findPersonDescendants(obj, array = []) {
+    let descendantList = obj.descendants;
+    array = [obj];
+    if (descendantList.length === 0) {
+        return list;
+    }
+    for (let i = 0; i < descendantList.length; i++) {
+        array = array.concat(
+            findPersonDescendants(descendantList[i])
+        );
+    }
+    return list;
+}
 
-  alert(personFamily);
+
+function searchByTraits(array){
+    let userInput = prompt[("Please enter a trait or traits to search by. You may enter up to 5 traits please seperate by a comma and space:  ")];
+    let userInputVal = prompt[("Please enter value(s): ")];
+    let result = array.filter((object) => {
+        try{
+           if (
+             (object[userInput][0].includes[userInputVal][0] &&
+             object[userInput][1].includes[userInputVal][1] &&
+             object[userInput][2].includes[userInputVal][2] &&
+             object[userInput][3].includes[userInputVal][3] &&
+             object[userInput][4].includes[userInputVal][4])) {
+             return true;
+           } 
+        } catch (error) {
+            console.log(error);
+        }
+        finally{
+            if (object[userInput] === parseInt(userInputVal)){
+                return true;
+            }
+        }
+    });
+    return result; 
 }
