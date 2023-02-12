@@ -32,7 +32,6 @@ function app(people) {
       //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
       //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
       searchResults = searchByTraits(people);
-      alert(searchResults);
       break;
     default:
       // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -148,7 +147,7 @@ function displayPerson(person) {
   personInfo += `Eye Color: ${person.eyeColor}\n`;
   personInfo += `Occupation: ${person.occupation}\n`;
   //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
-  alert(personInfo);
+  return personInfo;
 }
 // End of displayPerson()
 
@@ -307,24 +306,24 @@ function searchByTraits(people){
     let result = []
     let resultList = ""
         result = people.filter((object) => {
-        // try{
-           if
-             (object[userInput].includes(userInputVal) || object[userInput] === parseInt(userInputVal)) {
-            //  object[userInput][1].includes[userInputVal][1] &&
-            //  object[userInput][2].includes[userInputVal][2] &&
-            //  object[userInput][3].includes[userInputVal][3] &&
-            //  object[userInput][4].includes[userInputVal][4])
+        try{
+           if 
+             (object[userInput] === userInputVal) {
+            //  object[userInput][1] === [userInputVal][1] &&
+            //  object[userInput][2] === [userInputVal][2] &&
+            //  object[userInput][3] === [userInputVal][3] &&
+            //  object[userInput][4] === [userInputVal][4]) {
             
              return true;
-           } 
-        // } catch (error) {
-        //     console.log(error);
-        // }
-        // finally{
-        //     if (object[userInput] === parseInt(userInputVal)){
-        //         return true;
-        //     }
-        // }
+           }
+        } catch (error) {
+            console.log(error);
+        }
+        finally{
+            if (object[userInput] === parseInt(userInputVal)){
+                return true;
+            }
+        }
     });
     for (let i = 0; i < result.length; i++) {
         resultList +=
@@ -332,6 +331,16 @@ function searchByTraits(people){
       } if (result.length === 0) {
         return "Sorry, there is no match";
       }
-      return resultList;
+      alert(resultList);
+      app(people);
 }
 
+// function searchByEyeColor(people) {
+//   let userInput = promt("Please enter a eye color to search by: ");
+//   let result = people.filter((object) => {
+//     if (object.eyeColor === userInput) {
+//       return true;
+//     }
+//   });
+//   return result;
+// }
