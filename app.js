@@ -335,12 +335,36 @@ function searchByTraits(people){
       app(people);
 }
 
+// function for each trait
 // function searchByEyeColor(people) {
-//   let userInput = promt("Please enter a eye color to search by: ");
+//   let userInput = promt("Please enter an eye color to search by: ");
 //   let result = people.filter((object) => {
 //     if (object.eyeColor === userInput) {
 //       return true;
 //     }
 //   });
 //   return result;
+// }
+
+// function displaySearchByTraits(people) {
+//   let eyeColor = searchByEyeColor(people);
+//   let occupation = searchByOccupation(people);
+//   let gender = searchByGender(people);
+//   let height = searchByHeight(people);
+//   let weight = searchByWeight(people);
+//   let personFamily = "Parents: " + parents + "\n";
+//   personFamily += "Siblings: " + siblings + "\n";
+//   personFamily += "Spouse: " + spouse + "\n";
+//   // personFamily += "Children: " + children + "\n";
+
+//   return personFamily;
+// }
+
+// get all input in an array; max 5
+// function getInputArray(people) {
+//   let inputArray = [];
+//   let arraySize = 5;
+//   for (let i = 0; i <=5; i++) {
+//     inputArray[i] = prompt("Please enter a trait to search by: " + (i+1));
+//   } return inputArray;
 // }
