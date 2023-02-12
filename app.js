@@ -346,6 +346,17 @@ function searchByTraits(people){
 //   return result;
 // }
 
+// function searchByWeight(people) {
+//   let userInput = parseInt(prompt("Please enter a weight to search to search by"));
+//   let result = people.filter((object) => {
+//     if (object.weight === userInput) {
+//       return true;
+//     }
+//   });
+
+//   return result;
+// }
+
 // function displaySearchByTraits(people) {
 //   let eyeColor = searchByEyeColor(people);
 //   let occupation = searchByOccupation(people);
