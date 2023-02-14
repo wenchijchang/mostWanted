@@ -270,12 +270,6 @@ function findChildren(person, people) {
             return true;
         } 
     });
-    // if (children.length === 0) {
-    //     return "No data on children";
-    // }
-    //   for (let i = 0; i < children.length; i++) {
-        //     foundChildren += children[i].firstName + " " + children[i].lastName + ". ";
-        //   }
     return children;
 }
     
@@ -292,7 +286,7 @@ function findPersonDescendants(person, people) {
     return foundDescendants;
 }
 
-function displayDescendants(Person, people) {
+function displayDescendants(person, people) {
   let descendants = findPersonDescendants(person, people);
   if (descendants.length === 0){
     return "No data on descendants"
@@ -301,19 +295,14 @@ function displayDescendants(Person, people) {
 }
 
 function searchByTraits(people){
-    let userInput = prompt("Please enter a trait or traits to search by:  ");
-    let userInputVal = prompt("Please enter value(s): ");
+    let userInput = prompt("Please enter a trait to search by e.g., 'eyeColor', 'gender', 'weight':  ");
+    let userInputVal = prompt("Please enter value: "); 
     let result = []
     let resultList = ""
         result = people.filter((object) => {
         try{
            if 
-             (object[userInput] === userInputVal) {
-            //  object[userInput][1] === [userInputVal][1] &&
-            //  object[userInput][2] === [userInputVal][2] &&
-            //  object[userInput][3] === [userInputVal][3] &&
-            //  object[userInput][4] === [userInputVal][4]) {
-            
+             (object[userInput] === userInputVal) {  
              return true;
            }
         } catch (error) {
@@ -331,10 +320,19 @@ function searchByTraits(people){
       } if (result.length === 0) {
         return "Sorry, there is no match";
       }
-      alert(resultList);
-      app(people);
+      alert(`Here is your search result(s): ${resultList}.`);
+    let narrowSearch = promptFor("Would you like to narrow down the search? Please enter yes/no", yesNo).toLowerCase();
+    switch (narrowSearch) {
+      case "yes":
+      searchByTraits(resultList);
+      case "no":
+      break;
+    }
 }
 
+
+
+// ideas on multi traits search
 // function for each trait
 // function searchByEyeColor(people) {
 //   let userInput = promt("Please enter an eye color to search by: ");
