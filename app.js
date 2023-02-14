@@ -320,7 +320,7 @@ function searchByTraits(people){
       } if (result.length === 0) {
         return "Sorry, there is no match";
       }
-      alert(`Here is your search result(s): ${resultList}.`);
+      alert(`Search result(s): ${resultList}.`);
     let narrowSearch = promptFor("Would you like to narrow down the search? Please enter yes/no", yesNo).toLowerCase();
     switch (narrowSearch) {
       case "yes":
