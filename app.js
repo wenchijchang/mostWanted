@@ -324,9 +324,12 @@ function searchByTraits(people){
     let narrowSearch = promptFor("Would you like to narrow down the search? Please enter yes/no", yesNo).toLowerCase();
     switch (narrowSearch) {
       case "yes":
-      searchByTraits(resultList);
+        searchByTraits(resultList);
       case "no":
-      break;
+        break;
+      default:
+        searchByTraits(people);
+        break;
     }
 }
 
