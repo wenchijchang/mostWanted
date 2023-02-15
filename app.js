@@ -212,21 +212,22 @@ function findParents(person, people) {
 function findSiblings(person, people) {
   let siblings = [];
   let foundSiblings = "";
-    siblings = people.filter((object) => {
-        if ((object.parents[0] === person.parents[0] ||
+  siblings = people.filter((object) => {
+    if (
+      (object.parents[0] === person.parents[0] ||
         object.parents[1] === person.parents[1] ||
         object.parents[0] === person.parents[1] ||
         object.parents[1] === person.parents[0]) &&
-        object != person &&
-        object.parents != person.id &&
-        object.parents.length >= 1
-        ) {
+      object != person &&
+      object.parents != person.id &&
+      object.parents.length >= 1
+    ) {
       return true;
-        }
-    });
-    if (siblings.length === 0) {
-        return "No data on siblings";
     }
+  });
+  if (siblings.length === 0) {
+    return "No data on siblings";
+  }
   for (let i = 0; i < siblings.length; i++) {
     foundSiblings += siblings[i].firstName + " " + siblings[i].lastName + ". ";
   }
@@ -249,91 +250,96 @@ function findSpouse(person, people) {
   }
 }
 
-
 function displayFamily(person, people) {
-    let parents = findParents(person, people);
-    let siblings = findSiblings(person, people);
-    let spouse = findSpouse(person, people);
-    // let children = findChildren(person, people);
-    let personFamily = "Parents: " + parents + "\n";
-    personFamily += "Siblings: " + siblings + "\n";
-    personFamily += "Spouse: " + spouse + "\n";
-    // personFamily += "Children: " + children + "\n";
-    
-    return personFamily;
+  let parents = findParents(person, people);
+  let siblings = findSiblings(person, people);
+  let spouse = findSpouse(person, people);
+  // let children = findChildren(person, people);
+  let personFamily = "Parents: " + parents + "\n";
+  personFamily += "Siblings: " + siblings + "\n";
+  personFamily += "Spouse: " + spouse + "\n";
+  // personFamily += "Children: " + children + "\n";
+
+  return personFamily;
 }
 
 function findChildren(person, people) {
-    let children = [];
-    children = people.filter((object) => {
-        if (object.parents.includes(person.id)) {
-            return true;
-        } 
-    });
-    return children;
-}
-    
-function findPersonDescendants(person, people) {
-    let children = findChildren(person, people);
-    let foundDescendants = "";
-    for (let i = 0; i < children.length; i++) {
-      foundDescendants += children[i].firstName + " " + children[i].lastName + ". ";
-      if (i >= 0) {
-        let grandChildren = findPersonDescendants(children[i], people);
-        foundDescendants += grandChildren;
-      }
+  let children = [];
+  children = people.filter((object) => {
+    if (object.parents.includes(person.id)) {
+      return true;
     }
-    return foundDescendants;
+  });
+  return children;
+}
+
+function findPersonDescendants(person, people) {
+  let children = findChildren(person, people);
+  let foundDescendants = "";
+  for (let i = 0; i < children.length; i++) {
+    foundDescendants +=
+      children[i].firstName + " " + children[i].lastName + ". ";
+    if (i >= 0) {
+      let grandChildren = findPersonDescendants(children[i], people);
+      foundDescendants += grandChildren;
+    }
+  }
+  return foundDescendants;
 }
 
 function displayDescendants(person, people) {
   let descendants = findPersonDescendants(person, people);
-  if (descendants.length === 0){
-    return "No data on descendants"
+  if (descendants.length === 0) {
+    return "No data on descendants";
   }
   return descendants;
 }
 
-function searchByTraits(people){
-    let userInput = prompt("Please enter a trait to search by e.g., 'eyeColor', 'gender', 'weight':  ");
-    let userInputVal = prompt("Please enter value: "); 
-    let result = []
-    let resultList = ""
-        result = people.filter((object) => {
-        try{
-           if 
-             (object[userInput] === userInputVal) {  
-             return true;
-           }
-        } catch (error) {
-            console.log(error);
-        }
-        finally{
-            if (object[userInput] === parseInt(userInputVal)){
-                return true;
-            }
-        }
-    });
-    for (let i = 0; i < result.length; i++) {
-        resultList +=
-          result[i].firstName + " " + result[i].lastName + ". ";
-      } if (result.length === 0) {
-        return "Sorry, there is no match";
+function searchByTraits(people) {
+  let userInput = prompt(
+    "Please enter a trait to search by e.g., 'eyeColor', 'gender', 'weight':  "
+  );
+  let userInputVal = prompt("Please enter value: ");
+  let result = [];
+  let resultList = "";
+  result = people.filter((object) => {
+    try {
+      if (object[userInput] === userInputVal) {
+        return true;
       }
-      alert(`Search result(s): ${resultList}.`);
-    let narrowSearch = promptFor("Would you like to narrow down the search? Please enter yes/no", yesNo).toLowerCase();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      if (object[userInput] === parseInt(userInputVal)) {
+        return true;
+      }
+    }
+  });
+  for (let i = 0; i < result.length; i++) {
+    resultList += result[i].firstName + " " + result[i].lastName + ". ";
+  }
+  if (result.length === 0) {
+    alert("Sorry, there is no match");
+  } else if (result.length === 1) {
+    return result;
+  }
+  if (result.length > 1) {
+    alert(`Search result(s): ${resultList}.`);
+    let narrowSearch = promptFor(
+      "Would you like to narrow down the search? Please enter yes/no",
+      yesNo
+    ).toLowerCase();
     switch (narrowSearch) {
       case "yes":
-        searchByTraits(resultList);
+        searchByTraits(result);
       case "no":
         break;
       default:
         searchByTraits(people);
         break;
     }
+  }
 }
-
-
 
 // ideas on multi traits search
 // function for each trait
